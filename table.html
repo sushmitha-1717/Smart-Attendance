@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: auto;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        img {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Attendance Dashboard</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for header in headers %}
+                <th>{{ header.upper() }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in records %}
+            <tr>
+                {% for header in headers %}
+                <td>
+                    {% if header == 'image_url' and item[header] != '#' %}
+                        <img src="{{ item[header] }}" alt="User Image">
+                    {% elif header == 'image_url' %}
+                        No Image
+                    {% else %}
+                        {{ item.get(header, '') }}
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
