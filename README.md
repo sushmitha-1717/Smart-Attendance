@@ -1,4 +1,9 @@
-Key Features
+🚀 Cloud-based Smart Attendance System
+
+A Face Recognition-based Attendance System built using AWS Cloud Services and Flask (Python).
+This project automatically marks attendance using Amazon Rekognition, stores it in DynamoDB, and displays results with images in a Flask web dashboard.
+
+✨ Key Features
 
 📷 Automatic Attendance → Upload real-time images, system matches with stored faces
 
@@ -27,7 +32,8 @@ AWS Lambda → Triggered on image upload, processes recognition and saves result
 Amazon DynamoDB → Stores attendance records
 
 Flask Web App → Displays attendance table with user images
-<img width="1919" height="1123" alt="image" src="https://github.com/user-attachments/assets/8c42fa09-ef0c-434b-adeb-1a1c3a71c864" />
+<img width="1919" height="1123" alt="image" src="https://github.com/user-attachments/assets/8c42fa09-ef0c-434b-adeb-1a1c3a71c864" /> 
+
 ⚙️ Setup Instructions
 1️⃣ AWS Setup
 
@@ -76,15 +82,15 @@ aws configure
 # Run Flask app
 python app.py
 
-<img width="1919" height="1123" alt="image" src="https://github.com/user-attachments/assets/8c42fa09-ef0c-434b-adeb-1a1c3a71c864" />
+
 Visit 👉 http://127.0.0.1:5000/
 
 
 📂 Project Structure
 attendance-system/
-│── app.py              
+│── app.py               
 │── templates/
 │    └── table.html      
-│── requirements.txt     
-│── README.md            
+│── requirements.txt    
+│── README.md           
 
