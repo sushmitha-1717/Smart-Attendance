@@ -79,11 +79,12 @@ python app.py
 
 Visit 👉 http://127.0.0.1:5000/
 
+
 📂 Project Structure
 attendance-system/
-│── app.py               # Flask backend (fetch + display attendance)
+│── app.py              
 │── templates/
-│    └── table.html      # Frontend (attendance dashboard)
-│── requirements.txt     # Python dependencies
-│── README.md            # Documentation
+│    └── table.html      
+│── requirements.txt     
+│── README.md            
 
