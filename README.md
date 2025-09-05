@@ -1,50 +1,47 @@
-🧩 Cloud-based Smart Attendance System
+Key Features
 
-This project is a Smart Attendance Tracking System built using AWS Cloud Services and Flask (Python).
-It captures attendance automatically using Amazon Rekognition (Face Recognition), stores results in DynamoDB, and displays attendance records with user images in a Flask web dashboard.
+📷 Automatic Attendance → Upload real-time images, system matches with stored faces
 
-📌 Features
+🖼 Amazon Rekognition → Detects and verifies users with high accuracy
 
-🖼️ Upload face images to S3 (reference bucket)
+🗄 Amazon DynamoDB → Stores attendance logs (user_id, timestamp, status)
 
-📷 Capture real-time images into S3 (test bucket)
+🪣 Amazon S3 → Stores both reference images and real-time captured images
 
-🔎 Compare faces with Amazon Rekognition
+🌐 Flask Dashboard → Displays attendance records with names, time, status & images
 
-🗄️ Store attendance logs in DynamoDB (user_id, timestamp, status)
+📊 CloudWatch Logs → Monitor Lambda executions
 
-🌐 View attendance in a Flask web app (with names, time, status, and images)
+🏗️ System Architecture
 
-🏗️ Architecture
+Amazon S3 → Two buckets
 
-Components Used:
+main-images-bucket → Stores reference face images (e.g., nandini.jpg)
 
-Amazon S3 → Stores test & reference images
+test-images-bucket → Stores uploaded real-time images
 
-Amazon Rekognition → Face matching
+Amazon Rekognition → Compares uploaded images with reference images
 
-AWS Lambda → Triggered on image upload, runs comparison logic
+AWS Lambda → Triggered on image upload, processes recognition and saves results
 
 Amazon DynamoDB → Stores attendance records
 
-Amazon CloudWatch → Logs Lambda execution
-
-Flask (Python) → Web dashboard frontend
-
+Flask Web App → Displays attendance table with user images
+<img width="1919" height="1123" alt="image" src="https://github.com/user-attachments/assets/8c42fa09-ef0c-434b-adeb-1a1c3a71c864" />
 ⚙️ Setup Instructions
-1. AWS Configuration
+1️⃣ AWS Setup
 
-Create 2 S3 buckets:
+Create two S3 buckets:
 
-main-images-bucketXXX → store reference images
+main-images-bucket → store reference images
 
-test-images-bucketXXX → store real-time images
+test-images-bucket → store real-time uploads
 
-Create DynamoDB table: AttendanceTableXXX
+Create DynamoDB table: AttendanceTable
 
-Partition Key: user_id (String)
+Partition key → user_id (String)
 
-Create IAM Role/User with:
+Create IAM Role/User with permissions:
 
 AmazonS3ReadOnlyAccess
 
@@ -54,49 +51,39 @@ AmazonDynamoDBFullAccess
 
 CloudWatchLogsFullAccess
 
-2. Lambda Setup
+2️⃣ Lambda Setup
 
-Create Lambda function FaceAttendanceTrigger (Python 3.13)
+Function name: FaceAttendanceTrigger
 
-Add S3 Trigger on test-images-bucketXXX (event: PUT)
+Runtime: Python 3.13
 
-Deploy Lambda code (face recognition + DynamoDB insert)
+Trigger: PUT event on test-images-bucket
 
-3. Flask App Setup
+Code: Rekognition + DynamoDB insert logic
 
-Install requirements:
+3️⃣ Flask Setup (Local Dashboard)
+# Clone repo
+git clone https://github.com/your-username/attendance-system.git
+cd attendance-system
 
+# Install dependencies
 pip install flask boto3
 
-
-Configure AWS credentials locally:
-
+# Configure AWS credentials
 aws configure
+# (Enter Access Key, Secret Key, Region = ap-south-1)
 
-
-Enter Access Key, Secret Key, and Region (e.g., ap-south-1)
-
-Run Flask app:
-
+# Run Flask app
 python app.py
 
 
-Open browser:
-http://127.0.0.1:5000/  
+Visit 👉 http://127.0.0.1:5000/
 
-The Flask app shows a simple attendance table:
-
-STATUS	USER_ID	TIMESTAMP	IMAGE
-present	nandini	2025-09-05T07:33:22.692	🖼️ User Img
-present	kavya	2025-09-05T07:26:29.043	🖼️ User Img
-present	sushmitha	2025-09-05T07:40:10.128	🖼️ User Img
-present	anjali	2025-09-05T07:42:33.781	🖼️ User Img
-present	gowthami	2025-09-05T07:45:01.552	🖼️ User Img
-present	srilatha	2025-09-05T07:48:19.334	🖼️ User Img
 📂 Project Structure
 attendance-system/
-│── app.py               # Flask backend
+│── app.py               # Flask backend (fetch + display attendance)
 │── templates/
-│    └── table.html      # Frontend (dashboard)
-│── requirements.txt     # Dependencies
+│    └── table.html      # Frontend (attendance dashboard)
+│── requirements.txt     # Python dependencies
 │── README.md            # Documentation
+
