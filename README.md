@@ -1,110 +1,102 @@
-# Smart-Attendance
-This project involves creating a smart attendance tracking system that uses facial recognition to automatically mark student or employee attendance. It is integrated with AWS cloud services for storage, processing, and security, offering a scalable, contactless, and reliable attendance solution.
+🧩 Cloud-based Smart Attendance System
 
-🧑‍💻 Smart Attendance Dashboard (AWS + Flask)
-A cloud-based dashboard to visualize real-time attendance using AWS DynamoDB and display corresponding user photos from S3 — all in one elegant HTML table using Flask.
+This project is a Smart Attendance Tracking System built using AWS Cloud Services and Flask (Python).
+It captures attendance automatically using Amazon Rekognition (Face Recognition), stores results in DynamoDB, and displays attendance records with user images in a Flask web dashboard.
 
-🚀 Features
-Fetches real-time attendance data from DynamoDB
+📌 Features
 
-Auto-loads matching face images from AWS S3
+🖼️ Upload face images to S3 (reference bucket)
 
-Dynamically renders data in a clean HTML table
+📷 Capture real-time images into S3 (test bucket)
 
-Displays photo (if found), user_id, timestamp, status, etc.
+🔎 Compare faces with Amazon Rekognition
 
-🧰 Tech Stack
-Python (Flask, Boto3)
+🗄️ Store attendance logs in DynamoDB (user_id, timestamp, status)
 
-AWS DynamoDB (Attendance data)
+🌐 View attendance in a Flask web app (with names, time, status, and images)
 
-AWS S3 (User images)
+🏗️ Architecture
 
-HTML / Jinja2 (Templating)
+Components Used:
 
-Bootstrap/CSS (for responsive table UI – optional)
+Amazon S3 → Stores test & reference images
 
-📸 Sample UI
-Automatically displays attendance data like:
+Amazon Rekognition → Face matching
 
-Photo	User ID	Timestamp	Status
-kavya	2025-07-01T09:20:33	Present
+AWS Lambda → Triggered on image upload, runs comparison logic
 
-💻 Run Locally
-📦 Clone the repo:
+Amazon DynamoDB → Stores attendance records
 
-bash
-Copy
-Edit
-git clone https://github.com/your-username/smart-attendance-dashboard.git
-cd smart-attendance-dashboard
-🔧 Install dependencies:
+Amazon CloudWatch → Logs Lambda execution
 
-bash
-Copy
-Edit
-pip install flask boto3
-✍️ Update your AWS credentials and config:
-In app.py:
+Flask (Python) → Web dashboard frontend
 
-python
-Copy
-Edit
-AWS_ACCESS_KEY = 'YOUR_ACCESS_KEY'
-AWS_SECRET_KEY = 'YOUR_SECRET_KEY'
-AWS_REGION = 'ap-south-1'
-DYNAMO_TABLE = 'AttendanceTable22'
-S3_BUCKET = 'test-images-bucket22'
-▶️ Run the app:
+⚙️ Setup Instructions
+1. AWS Configuration
 
-bash
-Copy
-Edit
-python app.py
-🌐 Open in browser:
+Create 2 S3 buckets:
 
-cpp
-Copy
-Edit
-http://127.0.0.1:5000
-📦 Folder Structure
-bash
-Copy
-Edit
-├── app.py             # Flask app with DynamoDB + S3 integration
-├── templates/
-│   └── table.html     # Dynamic HTML table using Jinja2
-✨ Optimizations
-Automatically checks for jpg/jpeg/png images in S3
+main-images-bucketXXX → store reference images
 
-Skips image rendering if not found
+test-images-bucketXXX → store real-time images
 
-Dynamically adapts to available data columns
+Create DynamoDB table: AttendanceTableXXX
 
-🔐 AWS Permissions Needed
-Attach these policies to your IAM user or role:
+Partition Key: user_id (String)
 
-AmazonDynamoDBReadOnlyAccess
+Create IAM Role/User with:
 
 AmazonS3ReadOnlyAccess
 
-✅ Ensure your S3 bucket has public access or a correct pre-signed URL policy.
+AmazonRekognitionFullAccess
 
-🧪 Example S3 Bucket URL Format
-php-template
-Copy
-Edit
-https://<your-bucket>.s3.<region>.amazonaws.com/<user_id>.jpg
-Example:
+AmazonDynamoDBFullAccess
 
-bash
-Copy
-Edit
-https://test-images-bucket22.s3.ap-south-1.amazonaws.com/kavya.jpg
-📬 Feedback / Issues
-Feel free to open GitHub Issues or submit a PR if you'd like to contribute or suggest improvements!
+CloudWatchLogsFullAccess
 
-🙏 Acknowledgements
-Inspired by AWS Cloud Services and Smart Attendance ideas.
-Data rendered using Flask and Boto3.
+2. Lambda Setup
 
+Create Lambda function FaceAttendanceTrigger (Python 3.13)
+
+Add S3 Trigger on test-images-bucketXXX (event: PUT)
+
+Deploy Lambda code (face recognition + DynamoDB insert)
+
+3. Flask App Setup
+
+Install requirements:
+
+pip install flask boto3
+
+
+Configure AWS credentials locally:
+
+aws configure
+
+
+Enter Access Key, Secret Key, and Region (e.g., ap-south-1)
+
+Run Flask app:
+
+python app.py
+
+
+Open browser:
+http://127.0.0.1:5000/  
+
+The Flask app shows a simple attendance table:
+
+STATUS	USER_ID	TIMESTAMP	IMAGE
+present	nandini	2025-09-05T07:33:22.692	🖼️ User Img
+present	kavya	2025-09-05T07:26:29.043	🖼️ User Img
+present	sushmitha	2025-09-05T07:40:10.128	🖼️ User Img
+present	anjali	2025-09-05T07:42:33.781	🖼️ User Img
+present	gowthami	2025-09-05T07:45:01.552	🖼️ User Img
+present	srilatha	2025-09-05T07:48:19.334	🖼️ User Img
+📂 Project Structure
+attendance-system/
+│── app.py               # Flask backend
+│── templates/
+│    └── table.html      # Frontend (dashboard)
+│── requirements.txt     # Dependencies
+│── README.md            # Documentation
