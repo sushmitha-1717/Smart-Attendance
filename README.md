@@ -68,9 +68,6 @@ Trigger: PUT event on test-images-bucket
 Code: Rekognition + DynamoDB insert logic
 
 3️⃣ Flask Setup (Local Dashboard)
-# Clone repo
-git clone https://github.com/your-username/attendance-system.git
-cd attendance-system
 
 # Install dependencies
 pip install flask boto3
