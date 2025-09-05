@@ -76,7 +76,7 @@ aws configure
 # Run Flask app
 python app.py
 
-
+<img width="1919" height="1123" alt="image" src="https://github.com/user-attachments/assets/8c42fa09-ef0c-434b-adeb-1a1c3a71c864" />
 Visit 👉 http://127.0.0.1:5000/
 
 
