@@ -4,11 +4,11 @@ import boto3
 app = Flask(__name__)
 
 
-AWS_ACCESS_KEY = 'AKIAQE3ROL76MM3H4FRG'
-AWS_SECRET_KEY = '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'
+AWS_ACCESS_KEY = 'AKIATCKANUN3MLSTCVGG'
+AWS_SECRET_KEY = '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'
 AWS_REGION = 'ap-south-1'
-DYNAMO_TABLE = 'AttendanceTable22'
-S3_BUCKET = 'test-images-bucket22'
+DYNAMO_TABLE = 'AttendanceTable001'
+S3_BUCKET = 'test-images-bucket001'
 
 dynamodb = boto3.resource(
     'dynamodb',
