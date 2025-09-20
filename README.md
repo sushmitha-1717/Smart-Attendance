@@ -3,7 +3,7 @@
 A Face Recognition-based Attendance System built using AWS Cloud Services and Flask (Python).
 This project automatically marks attendance using Amazon Rekognition, stores it in DynamoDB, and displays results with images in a Flask web dashboard.
 
-✨ Key Features
+✨Key Features
 
 📷 Automatic Attendance → Upload real-time images, system matches with stored faces
 
